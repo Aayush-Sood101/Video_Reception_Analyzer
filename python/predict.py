@@ -27,7 +27,11 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from typing import Optional
 from contextlib import asynccontextmanager
+# pyrefly: ignore [missing-import]
 from transformers import AutoTokenizer, AutoModel
+# pyrefly: ignore [missing-import]
+from transformers import AutoModelForSequenceClassification
+
 
 # Make sure we can import from the same package
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -95,7 +99,6 @@ def load_model():
     # Fallback: use base pre-trained classification head from HuggingFace
     print(f"[MSSF] No checkpoint found. Loading base Twitter-RoBERTa from HuggingFace...")
     print(f"[MSSF] Run 'python python/train.py --demo' to fine-tune first.")
-    from transformers import AutoModelForSequenceClassification
     try:
         tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
         backbone = AutoModel.from_pretrained(MODEL_NAME)
